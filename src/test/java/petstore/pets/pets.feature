@@ -1,11 +1,11 @@
 Feature: petstore test script
 
-  Scenario: create a pet is not implemented
+  Scenario: create a pet
     Given url petstoreUrl
     And path 'pets'
     And request {"id":3,"name":"Bubbles","tag":"fish","age":1}
     When method post
-    Then status 501
+    Then status 201
 
   Scenario: get all pets
     Given url petstoreUrl
