@@ -7,6 +7,28 @@ Feature: petstore test script
     When method post
     Then status 201
 
+  Scenario: create a pet, missing 'id'
+    Given url petstoreUrl
+    And path 'pets'
+    And request {"name":"Bubbles","tag":"fish","age":1}
+    When method post
+    Then status 400
+    And match response.status contains 400
+    And match response.error contains 'Bad Request'
+    And match response.errors[0].field contains 'id'
+    And match response.errors[0].rejectedValue contains null
+
+  Scenario: create a pet, missing 'name'
+    Given url petstoreUrl
+    And path 'pets'
+    And request {"id":3,"tag":"fish","age":1}
+    When method post
+    Then status 400
+    And match response.status contains 400
+    And match response.error contains 'Bad Request'
+    And match response.errors[0].field contains 'name'
+    And match response.errors[0].rejectedValue contains null
+
   Scenario: get all pets
     Given url petstoreUrl
     And path 'pets'
