@@ -30,6 +30,19 @@ Feature: petstore test script
     And match response.errors[0].field contains 'name'
     And match response.errors[0].rejectedValue contains null
 
+  Scenario Outline: id: <id>, name: <name>, tag: <tag>, age: <age>
+    Given url petstoreUrl
+    And path 'pets'
+    And request { "id": <id>, "name": <name>, "tag": <tag>, "age": <age> }
+    When method post
+    Then status 400
+
+    Examples:
+      | id     | name      | tag       | age   |
+      | gg     | 'bouncer' | 'cat'     |  null |
+      | 1      | null      | 'dog'     |     5 |
+      | null   | 'dave'    | null      |     3 |
+
   Scenario: get all pets
     Given url petstoreUrl
     And path 'pets'
