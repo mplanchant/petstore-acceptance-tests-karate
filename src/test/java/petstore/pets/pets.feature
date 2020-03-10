@@ -6,6 +6,7 @@ Feature: petstore test script
     And request {"id":3,"name":"Bubbles","tag":"fish","age":1}
     When method post
     Then status 201
+    And match header Location == '#notnull'
 
   Scenario: create a pet, missing 'id'
     Given url petstoreUrl
